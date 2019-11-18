@@ -18,7 +18,6 @@
                           <ul>
                              
                           </ul>
-
                     </div>
                     
                     <form action="" id="adicionar">

@@ -1,3 +1,6 @@
+
+// Verificador do input
+
 const btnAdd = document.querySelector(".btn-add");
 const alin = document.querySelector("#alinhamento"); 
 
@@ -20,33 +23,34 @@ btnAdd.addEventListener("click", event => {
         });
     } else {
         btnAdd.onclick = addTodo;
+        
     }
 });
-//esse é o final do verificador 
 
+// Aqui começa o add 
 
-//aqui começa os codigos de adicionar os li
-var inputElement = document.querySelector("form input");
-var listElement = document.querySelector(".list ul");
+let inputElement = document.querySelector("form input");
+let listElement = document.querySelector(".list ul");
 
-var todos = [
+let todos = [
     'Fazer café',
     'estudar JS',
     'tomar cafe'
 ];
 
+
 function renderTodos() {
     listElement.innerHTML = '';
+    
 
     for(todo of todos) {
-        var todoElement  = document.createElement('li');
-        var todoText = document.createTextNode(todo);
+        let todoElement  = document.createElement('li');
+        let todoText = document.createTextNode(todo);
 
-        var linkElement = document.createElement('a');
+        let linkElement = document.createElement('a');
 
-        var linkImg = document.createElement('img');
-
-
+        let linkImg = document.createElement('img');
+        linkImg.setAttribute('src', 'assets/img/error.png'); 
 
         linkElement.appendChild(linkImg);
 
@@ -58,12 +62,15 @@ function renderTodos() {
     renderTodos();
 
 function addTodo() {
-    var todoText = inputElement.value;
+    let todoText = inputElement.value;
 
     todos.push(todoText);
     inputElement.value = '';
+    inputElement.innerHTML = '';
     renderTodos(); 
+    
 }
+console.log('addTodo');
 
 
 
