@@ -1,8 +1,10 @@
 
-// Verificador do input
+
 
 const btnAdd = document.querySelector(".btn-add");
 const alin = document.querySelector("#alinhamento"); 
+ 
+//evento de click 
 
 btnAdd.addEventListener("click", event => {
     event.preventDefault();
@@ -22,22 +24,18 @@ btnAdd.addEventListener("click", event => {
             }
         });
     } else {
-        btnAdd.onclick = addTodo;
-        
+            btnAdd.onclick = addTodo;
     }
 });
 
-// Aqui começa o add 
+
 
 let inputElement = document.querySelector("form input");
 let listElement = document.querySelector(".list ul");
 
-let todos = [
-    'Fazer café',
-    'estudar JS',
-    'tomar cafe'
-];
+let todos = JSON.parse(localStorage.getItem('list_todos')) || [];
 
+//aqui cria o li  
 
 function renderTodos() {
     listElement.innerHTML = '';
@@ -48,8 +46,10 @@ function renderTodos() {
         let todoText = document.createTextNode(todo);
 
         let linkElement = document.createElement('a');
-
+        let pos = todos.indexOf(todo);
+        linkElement.setAttribute('onclick','deleteTodo(' + pos + ')');
         let linkImg = document.createElement('img');
+
         linkImg.setAttribute('src', 'assets/img/error.png'); 
 
         linkElement.appendChild(linkImg);
@@ -61,16 +61,72 @@ function renderTodos() {
 }
     renderTodos();
 
+// adicionar li (elementos)
+
+
 function addTodo() {
     let todoText = inputElement.value;
 
-    todos.push(todoText);
-    inputElement.value = '';
-    inputElement.innerHTML = '';
-    renderTodos(); 
-    
+     if(todoText === '') {
+         
+         return false;
+     }
+     else{
+
+        todos.push(todoText);
+        inputElement.value = '';
+        inputElement.innerHTML = '';
+        renderTodos();
+        saveToStorage(); 
+
+     }
 }
-console.log('addTodo');
+
+//delete li (elementos)
+
+function deleteTodo(pos) {
+    todos.splice(pos, 1);
+    renderTodos();
+    saveToStorage();
+}
 
 
+// salvar os li (elemento)
+
+function saveToStorage() {
+    localStorage.setItem("list_todos",JSON.stringify(todos));
+}
+
+// animações de quadrados no background
+
+const ulSquares = document.querySelector("ul.squares");
+
+for (let i = 0; i < 21; i++) {
+
+    const li = document.createElement("li");
+
+    const random = (min, max) => Math.random() * (max - min) + min;
+
+    const size = Math.floor(random(10, 120));
+    
+    const position = random(1, 99);
+
+    const delay = random(5, 0.1);
+
+    const duration = random(24, 12);
+    
+    li.style.height = `${size}px`;
+    li.style.width = `${size}px`;
+    li.style.bottom = `-${size}px`;
+
+    li.style.left = `${position}%`;
+
+    li.style.animationDelay = `${delay}s`;
+
+    li.style.animationDuration = `${duration}s`;
+
+    li.style.animationTimingFunction = `cubic-bazier(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random()})`;
+
+    ulSquares.appendChild(li);
+}
 

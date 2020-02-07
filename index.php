@@ -15,9 +15,7 @@
                     <div class="line"></div>
 
                     <div class="list">
-                          <ul>
-                             
-                          </ul>
+                          <ul></ul>
                     </div>
                     
                     <form action="" id="adicionar">
@@ -31,6 +29,9 @@
             </div>
         </div>
     </div>
+
+    <ul class="squares"></ul>
+
     <script src="assets/js/script.js"></script>    
 </body>
 </html>
